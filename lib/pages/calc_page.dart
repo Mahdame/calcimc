@@ -10,35 +10,6 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
-  final TextEditingController peso = TextEditingController();
-  final TextEditingController altura = TextEditingController();
-  String? resultado = '';
-  String? errorText;
-
-  void calcular() {
-    double valorPeso = double.parse(peso.text);
-    double valorAltura = double.parse(altura.text) / 100;
-    double imc = (valorPeso / (valorAltura * valorAltura));
-
-    if (imc < 18.5) {
-      resultado = 'Magreza';
-    } else if (imc >= 18.5 && imc <= 24.9) {
-      resultado = 'Normal';
-    } else if (imc >= 25.0 && imc <= 29.9) {
-      resultado = 'Sobrepeso';
-    } else if (imc >= 30.0 && imc <= 39.9) {
-      resultado = 'Obesidade';
-    } else if (imc >= 40.0) {
-      resultado = 'Obesidade Grave';
-    }
-  }
-
-  void limpaCampos() {
-    peso.text = '';
-    altura.text = '';
-    resultado = '';
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
