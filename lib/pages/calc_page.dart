@@ -4,7 +4,13 @@ import 'package:flutter/material.dart';
 
 const bottomContainerHeight = 80.0;
 const activeCardColor = Color(0xff1d1e33);
+const inactiveCardColor = Color(0xff111328);
 const bottomContainerColor = Color(0xffeb1555);
+
+enum Gender {
+  male,
+  female,
+}
 
 class Home extends StatefulWidget {
   const Home({Key? key}) : super(key: key);
@@ -14,6 +20,8 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
+  Gender? selectedGender;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -33,20 +41,38 @@ class _HomeState extends State<Home> {
             child: Row(
               children: [
                 Expanded(
-                  child: ReusableCard(
-                    color: activeCardColor,
-                    cardChild: GenderCard(
-                      icon: Icons.male,
-                      gender: 'MASCULINO',
+                  child: GestureDetector(
+                    onTap: () {
+                      setState(() {
+                        selectedGender = Gender.male;
+                      });
+                    },
+                    child: ReusableCard(
+                      color: selectedGender == Gender.male
+                          ? activeCardColor
+                          : inactiveCardColor,
+                      cardChild: GenderCard(
+                        icon: Icons.male,
+                        gender: 'MASCULINO',
+                      ),
                     ),
                   ),
                 ),
                 Expanded(
-                  child: ReusableCard(
-                    color: activeCardColor,
-                    cardChild: GenderCard(
-                      icon: Icons.female,
-                      gender: 'FEMININO',
+                  child: GestureDetector(
+                    onTap: () {
+                      setState(() {
+                        selectedGender = Gender.female;
+                      });
+                    },
+                    child: ReusableCard(
+                      color: selectedGender == Gender.female
+                          ? activeCardColor
+                          : inactiveCardColor,
+                      cardChild: GenderCard(
+                        icon: Icons.female,
+                        gender: 'FEMININO',
+                      ),
                     ),
                   ),
                 ),
