@@ -41,38 +41,34 @@ class _HomeState extends State<Home> {
             child: Row(
               children: [
                 Expanded(
-                  child: GestureDetector(
-                    onTap: () {
+                  child: ReusableCard(
+                    onPress: () {
                       setState(() {
                         selectedGender = Gender.male;
                       });
                     },
-                    child: ReusableCard(
-                      color: selectedGender == Gender.male
-                          ? activeCardColor
-                          : inactiveCardColor,
-                      cardChild: GenderCard(
-                        icon: Icons.male,
-                        gender: 'MASCULINO',
-                      ),
+                    color: selectedGender == Gender.male
+                        ? activeCardColor
+                        : inactiveCardColor,
+                    cardChild: GenderCard(
+                      icon: Icons.male,
+                      gender: 'MASCULINO',
                     ),
                   ),
                 ),
                 Expanded(
-                  child: GestureDetector(
-                    onTap: () {
+                  child: ReusableCard(
+                    onPress: () {
                       setState(() {
                         selectedGender = Gender.female;
                       });
                     },
-                    child: ReusableCard(
-                      color: selectedGender == Gender.female
-                          ? activeCardColor
-                          : inactiveCardColor,
-                      cardChild: GenderCard(
-                        icon: Icons.female,
-                        gender: 'FEMININO',
-                      ),
+                    color: selectedGender == Gender.female
+                        ? activeCardColor
+                        : inactiveCardColor,
+                    cardChild: GenderCard(
+                      icon: Icons.female,
+                      gender: 'FEMININO',
                     ),
                   ),
                 ),
