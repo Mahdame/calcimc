@@ -1,11 +1,7 @@
+import 'package:calcimc/constants.dart';
 import 'package:calcimc/widgets/gender_card.dart';
 import 'package:calcimc/widgets/reusable_card.dart';
 import 'package:flutter/material.dart';
-
-const bottomContainerHeight = 80.0;
-const activeCardColor = Color(0xff1d1e33);
-const inactiveCardColor = Color(0xff111328);
-const bottomContainerColor = Color(0xffeb1555);
 
 enum Gender {
   male,
@@ -21,6 +17,7 @@ class Home extends StatefulWidget {
 
 class _HomeState extends State<Home> {
   Gender? selectedGender;
+  int height = 180;
 
   @override
   Widget build(BuildContext context) {
@@ -36,6 +33,7 @@ class _HomeState extends State<Home> {
         ),
       ),
       body: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
           Expanded(
             child: Row(
@@ -48,8 +46,8 @@ class _HomeState extends State<Home> {
                       });
                     },
                     color: selectedGender == Gender.male
-                        ? activeCardColor
-                        : inactiveCardColor,
+                        ? kActiveCardColor
+                        : kInactiveCardColor,
                     cardChild: GenderCard(
                       icon: Icons.male,
                       gender: 'MASCULINO',
@@ -64,8 +62,8 @@ class _HomeState extends State<Home> {
                       });
                     },
                     color: selectedGender == Gender.female
-                        ? activeCardColor
-                        : inactiveCardColor,
+                        ? kActiveCardColor
+                        : kInactiveCardColor,
                     cardChild: GenderCard(
                       icon: Icons.female,
                       gender: 'FEMININO',
@@ -80,7 +78,53 @@ class _HomeState extends State<Home> {
               children: [
                 Expanded(
                   child: ReusableCard(
-                    color: activeCardColor,
+                    color: kActiveCardColor,
+                    cardChild: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        const Text(
+                          'ALTURA',
+                          style: kLabelTextStyle,
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          crossAxisAlignment: CrossAxisAlignment.baseline,
+                          textBaseline: TextBaseline.alphabetic,
+                          children: [
+                            Text(
+                              height.toString(),
+                              style: kNumberTextStyle,
+                            ),
+                            const Text(
+                              'cm',
+                              style: kLabelTextStyle,
+                            ),
+                          ],
+                        ),
+                        SliderTheme(
+                          data: SliderTheme.of(context).copyWith(
+                            activeTrackColor: Colors.white,
+                            thumbColor: Color(0xffeb1555),
+                            overlayColor: Color(0x29eb1555),
+                            inactiveTrackColor: Color(0xff8d8e98),
+                            thumbShape:
+                                RoundSliderThumbShape(enabledThumbRadius: 18.0),
+                            overlayShape:
+                                RoundSliderOverlayShape(overlayRadius: 30.0),
+                          ),
+                          child: Slider(
+                              value: height.toDouble(),
+                              min: 120.0,
+                              max: 220.0,
+                              label: '$height',
+                              onChanged: (double newValue) {
+                                setState(() {
+                                  height = newValue.round();
+                                });
+                              }),
+                        )
+                      ],
+                    ),
                   ),
                 ),
               ],
@@ -91,22 +135,22 @@ class _HomeState extends State<Home> {
               children: [
                 Expanded(
                   child: ReusableCard(
-                    color: activeCardColor,
+                    color: kActiveCardColor,
                   ),
                 ),
                 Expanded(
                   child: ReusableCard(
-                    color: activeCardColor,
+                    color: kActiveCardColor,
                   ),
                 ),
               ],
             ),
           ),
           Container(
-            color: bottomContainerColor,
-            margin: EdgeInsets.only(top: 10.0),
+            color: kBottomContainerColor,
+            margin: const EdgeInsets.only(top: 10.0),
             width: double.infinity,
-            height: bottomContainerHeight,
+            height: kBottomContainerHeight,
           ),
         ],
       ),
