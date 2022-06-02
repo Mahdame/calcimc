@@ -1,7 +1,13 @@
 import 'package:calcimc/constants.dart';
+import 'package:calcimc/pages/results_page.dart';
 import 'package:calcimc/widgets/gender_card.dart';
 import 'package:calcimc/widgets/reusable_card.dart';
+import 'package:calcimc/widgets/round_icon_button.dart';
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+
+import '../calculator.dart';
+import '../widgets/bottom_button.dart';
 
 enum Gender {
   male,
@@ -18,6 +24,8 @@ class Home extends StatefulWidget {
 class _HomeState extends State<Home> {
   Gender? selectedGender;
   int height = 180;
+  int weight = 80;
+  int age = 18;
 
   @override
   Widget build(BuildContext context) {
@@ -25,11 +33,7 @@ class _HomeState extends State<Home> {
       appBar: AppBar(
         title: const Text(
           'Calculadora de IMC',
-          style: TextStyle(
-            fontSize: 30,
-            color: Colors.white,
-            fontFamily: 'Pacifico',
-          ),
+          style: kAppBarTitleTextStyle,
         ),
       ),
       body: Column(
@@ -136,21 +140,117 @@ class _HomeState extends State<Home> {
                 Expanded(
                   child: ReusableCard(
                     color: kActiveCardColor,
+                    cardChild: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        const Text(
+                          'PESO',
+                          style: kLabelTextStyle,
+                        ),
+                        Text(
+                          weight.toString(),
+                          style: kNumberTextStyle,
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            RoundIconButton(
+                              icon: FontAwesomeIcons.minus,
+                              onPress: () {
+                                setState(() {
+                                  weight = weight - 1;
+                                  if (weight < 1) {
+                                    weight = 1;
+                                  }
+                                });
+                              },
+                            ),
+                            const SizedBox(
+                              width: 15.0,
+                            ),
+                            RoundIconButton(
+                              icon: FontAwesomeIcons.plus,
+                              onPress: () {
+                                setState(() {
+                                  weight = weight + 1;
+                                });
+                              },
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
                   ),
                 ),
                 Expanded(
                   child: ReusableCard(
                     color: kActiveCardColor,
+                    cardChild: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        const Text(
+                          'IDADE',
+                          style: kLabelTextStyle,
+                        ),
+                        Text(
+                          age.toString(),
+                          style: kNumberTextStyle,
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            RoundIconButton(
+                              icon: FontAwesomeIcons.minus,
+                              onPress: () {
+                                setState(() {
+                                  age--;
+                                  if (age < 1) {
+                                    age = 1;
+                                  }
+                                });
+                              },
+                            ),
+                            const SizedBox(
+                              width: 15.0,
+                            ),
+                            RoundIconButton(
+                              icon: FontAwesomeIcons.plus,
+                              onPress: () {
+                                setState(() {
+                                  age++;
+                                  if (age > 110) {
+                                    age = 110;
+                                  }
+                                });
+                              },
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
                   ),
                 ),
               ],
             ),
           ),
-          Container(
-            color: kBottomContainerColor,
-            margin: const EdgeInsets.only(top: 10.0),
-            width: double.infinity,
-            height: kBottomContainerHeight,
+          BottomButton(
+            onTap: () {
+              Calculator calc = Calculator(
+                height: height,
+                weight: weight,
+              );
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => Results(
+                    resultBMI: calc.calculateBMI(),
+                    resultLabel: calc.getResult(),
+                    resultDescription: calc.getDescription(),
+                  ),
+                ),
+              );
+            },
+            buttonTitle: 'CALCULAR',
           ),
         ],
       ),
