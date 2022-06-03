@@ -2,15 +2,8 @@
 
 Calculadora de IMC.
 
-## Getting Started
+Esta calculadora ainda não implementa em seu cálculo as variáveis gênero e idade, somente o cálculo padrão/geral.
 
-This project is a starting point for a Flutter application.
+## Screenshots
 
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
-
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+<img src="https://user-images.githubusercontent.com/22501217/171854549-cb22ba4f-756e-42a6-8355-740d755430c4.gif" width="35%" height="35%">
